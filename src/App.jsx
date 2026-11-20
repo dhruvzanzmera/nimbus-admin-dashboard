@@ -34,12 +34,12 @@ const NAV_GROUPS = [
 ];
 
 const PAGE_META = {
-  "/":        { title: "Overview",  icon: icons.grid },
-  "/users":   { title: "Users",     icon: icons.users },
-  "/orders":  { title: "Orders",    icon: icons.cart },
-  "/revenue": { title: "Revenue",   icon: icons.chart },
-  "/reports": { title: "Reports",   icon: icons.file },
-  "/settings":{ title: "Settings",  icon: icons.settings },
+  "/":        { title: "Overview",  icon: icons.grid, description: "View business performance, revenue, users, orders, and conversion analytics." },
+  "/users":   { title: "Users",     icon: icons.users, description: "Manage Nimbus users, account details, roles, and activity." },
+  "/orders":  { title: "Orders",    icon: icons.cart, description: "Review and manage customer orders and their fulfillment status." },
+  "/revenue": { title: "Revenue",   icon: icons.chart, description: "Analyze Nimbus revenue, subscriptions, and financial performance." },
+  "/reports": { title: "Reports",   icon: icons.file, description: "Browse reports and download business analytics data." },
+  "/settings":{ title: "Settings",  icon: icons.settings, description: "Configure your Nimbus admin console and account preferences." },
 };
 
 const NOTIFICATIONS = [
@@ -305,6 +305,24 @@ function Topbar({ mobileOpen, setMobileOpen, theme, toggleTheme }) {
 function Layout({ theme, toggleTheme }) {
   const [collapsed, setCollapsed]   = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const meta = PAGE_META[location.pathname] || PAGE_META["/"];
+
+  useEffect(() => {
+    document.title = `Nimbus | ${meta.title}`;
+
+    const description = document.querySelector('meta[name="description"]');
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+
+    if (description) description.setAttribute("content", meta.description);
+    if (ogTitle) ogTitle.setAttribute("content", `Nimbus | ${meta.title}`);
+    if (ogDescription) ogDescription.setAttribute("content", meta.description);
+    if (twitterTitle) twitterTitle.setAttribute("content", `Nimbus | ${meta.title}`);
+    if (twitterDescription) twitterDescription.setAttribute("content", meta.description);
+  }, [location.pathname, meta]);
 
   return (
     <div className="min-h-screen w-full bg-bg-app text-text-main flex font-sans antialiased transition-colors duration-200">

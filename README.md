@@ -84,7 +84,7 @@ npm run lint    # run project linting
 
 ## Notes
 
-- The app currently uses a placeholder favicon removal setup and can be updated later with a custom favicon and brand metadata.
+- The app includes Nimbus SEO metadata and a branded SVG favicon.
 - You can customize page content and styling in the pages and CSS files under `src/`.
 
 ## License
