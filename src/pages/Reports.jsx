@@ -14,14 +14,14 @@ const REPORTS = [
 ];
 
 const TYPE_STYLES = {
-  Financial:  "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-500/20",
-  Growth:     "text-sky-650 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/20 border-sky-200 dark:border-sky-500/20",
-  Retention:  "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-500/20",
-  Operations: "text-violet-650 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/20 border-violet-200 dark:border-violet-500/20",
-  Sales:      "text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-500/20",
-  CX:         "text-slate-655 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/10 border-slate-200 dark:border-slate-700/20",
-  Product:    "text-teal-650 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/20 border-teal-200 dark:border-teal-500/20",
-  Security:   "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/20 border-orange-200 dark:border-orange-500/20",
+  Financial:  "text-text-muted bg-bg-hover border-border-card",
+  Growth:     "text-text-muted bg-bg-hover border-border-card",
+  Retention:  "text-text-muted bg-bg-hover border-border-card",
+  Operations: "text-text-muted bg-bg-hover border-border-card",
+  Sales:      "text-text-muted bg-bg-hover border-border-card",
+  CX:         "text-text-muted bg-bg-hover border-border-card",
+  Product:    "text-text-muted bg-bg-hover border-border-card",
+  Security:   "text-text-muted bg-bg-hover border-border-card",
 };
 
 export default function Reports() {
@@ -104,7 +104,7 @@ export default function Reports() {
               <button onClick={() => setSelected([])} className="text-text-sub hover:text-text-main"><Icon path={icons.x} className="w-3.5 h-3.5" /></button>
             </div>
           )}
-          <button className="inline-flex items-center gap-2 bg-accent text-bg-sidebar text-[13px] font-bold px-4 py-2 rounded-xl hover:bg-accent-hover transition-all shadow-[0_0_20px_var(--accent-light)] cursor-pointer">
+          <button className="inline-flex items-center gap-2 bg-accent text-accent-foreground text-[13px] font-bold px-4 py-2 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
             <Icon path={icons.plus} className="w-4 h-4" /> Generate Report
           </button>
         </div>
@@ -115,8 +115,8 @@ export default function Reports() {
         {[
           { label: "Total Reports",   value: REPORTS.length,                                          color: "var(--text-main)" },
           { label: "Published",       value: REPORTS.filter(r => r.status === "published").length,    color: "var(--accent)" },
-          { label: "Drafts",          value: REPORTS.filter(r => r.status === "draft").length,        color: "#FBBF24" },
-          { label: "This Month",      value: REPORTS.filter(r => r.generated.includes("Aug")).length, color: "#38BDF8" },
+          { label: "Drafts",          value: REPORTS.filter(r => r.status === "draft").length,        color: "var(--text-muted)" },
+          { label: "This Month",      value: REPORTS.filter(r => r.generated.includes("Aug")).length, color: "var(--text-muted)" },
         ].map(s => (
           <div key={s.label} className="bg-bg-card border border-border-card rounded-2xl px-5 py-4 hover:border-border-hover transition-all">
             <p className="text-[11px] font-medium text-text-sub uppercase tracking-wider">{s.label}</p>
@@ -190,7 +190,7 @@ export default function Reports() {
             </div>
             <div className="flex gap-2 pt-1">
               <button onClick={() => { show(`${preview.name} downloaded!`, "success"); setPreview(null); }}
-                className="flex-1 flex items-center justify-center gap-2 bg-accent text-bg-sidebar text-[13px] font-bold py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
+                className="flex-1 flex items-center justify-center gap-2 bg-accent text-accent-foreground text-[13px] font-bold py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
                 <Icon path={icons.download} className="w-4 h-4" /> Download PDF
               </button>
               <button onClick={() => setPreview(null)}

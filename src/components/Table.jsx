@@ -163,7 +163,7 @@ export function Pagination({ page, totalPages, total, pageSize, setPage }) {
             : <button
               key={p}
               onClick={() => setPage(p)}
-              className={`min-w-[30px] h-7 px-2 rounded-md text-[12px] font-medium transition-colors ${page === p ? "bg-accent text-bg-sidebar font-bold" : "text-text-muted hover:bg-bg-hover hover:text-text-main"}`}
+              className={`min-w-[30px] h-7 px-2 rounded-md text-[12px] font-medium transition-colors ${page === p ? "bg-accent text-accent-foreground font-bold" : "text-text-muted hover:bg-bg-hover hover:text-text-main"}`}
             >{p}</button>
         )}
         <PgBtn onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} icon={icons.chevronRight} />
@@ -187,7 +187,7 @@ function PgBtn({ onClick, disabled, icon }) {
 /* ── Card wrapper ── */
 export function TableCard({ title, subtitle, toolbar, footer, children, className = "" }) {
   return (
-    <div className={`bg-bg-card border border-border-card rounded-2xl overflow-hidden shadow-lg ${className}`}>
+    <div className={`bg-bg-card border border-border-card rounded-2xl overflow-hidden shadow-sm ${className}`}>
       {(title || toolbar) && (
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 border-b border-border-card">
           <div>
@@ -244,13 +244,11 @@ export function SegmentFilter({ options, value, onChange }) {
 }
 
 /* ── Stat Card ── */
-export function StatCard({ label, value, delta, up, icon, accent = "#5EEAD4", spark }) {
+export function StatCard({ label, value, delta, up, icon, accent = "var(--accent)", spark }) {
   return (
     <div className="bg-bg-card border border-border-card rounded-2xl p-5 flex flex-col gap-3 hover:border-border-hover transition-all duration-200 group relative overflow-hidden">
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ background: `radial-gradient(ellipse at top right, ${accent}08, transparent 60%)` }} />
       <div className="flex items-start justify-between relative">
-        <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${accent}18`, color: accent }}>
+        <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "var(--accent-light)", color: accent }}>
           <Icon path={icon} className="w-4.5 h-4.5" style={{ width: "18px", height: "18px" }} />
         </div>
         {delta !== undefined && (
@@ -267,7 +265,7 @@ export function StatCard({ label, value, delta, up, icon, accent = "#5EEAD4", sp
           <div className="flex items-end gap-[3px] h-6 mt-2">
             {(() => {
               const max = Math.max(...spark); return spark.map((p, i) => (
-                <div key={i} className="flex-1 rounded-sm transition-all" style={{ height: `${(p / max) * 100}%`, background: up !== false ? `${accent}60` : "#F8717160" }} />
+                <div key={i} className="flex-1 rounded-sm transition-all" style={{ height: `${(p / max) * 100}%`, background: up !== false ? `color-mix(in srgb, ${accent} 38%, transparent)` : "var(--chart-3)" }} />
               ));
             })()}
           </div>

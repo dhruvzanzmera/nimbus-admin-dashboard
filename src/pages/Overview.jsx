@@ -5,9 +5,9 @@ import { StatCard, TableCard, Table, Pagination, SearchInput, SegmentFilter, use
 /* ─── Data ─── */
 const STATS_DATA = [
   { label: "Total Revenue", value: "$284,391", delta: 12.4, up: true, icon: icons.trendingUp, accent: "var(--accent)", spark: [4, 6, 5, 8, 7, 9, 11] },
-  { label: "Active Users", value: "8,492", delta: 3.1, up: true, icon: icons.users, accent: "#7DD3FC", spark: [6, 5, 7, 6, 8, 8, 9] },
-  { label: "Open Orders", value: "342", delta: 2.4, up: false, icon: icons.cart, accent: "#F87171", spark: [9, 8, 8, 7, 6, 6, 5] },
-  { label: "Conversion", value: "4.8%", delta: 0.6, up: true, icon: icons.target, accent: "#C4B5FD", spark: [3, 4, 4, 5, 5, 6, 6] },
+  { label: "Active Users", value: "8,492", delta: 3.1, up: true, icon: icons.users, accent: "var(--accent)", spark: [6, 5, 7, 6, 8, 8, 9] },
+  { label: "Open Orders", value: "342", delta: 2.4, up: false, icon: icons.cart, accent: "var(--accent)", spark: [9, 8, 8, 7, 6, 6, 5] },
+  { label: "Conversion", value: "4.8%", delta: 0.6, up: true, icon: icons.target, accent: "var(--accent)", spark: [3, 4, 4, 5, 5, 6, 6] },
 ];
 
 const WEEKLY = [
@@ -34,20 +34,96 @@ const ACTIVITY = [
   { who: "Omar Haddad", what: "purchased Team Seats × 5", time: "7h ago", type: "purchase", avatar: "OH" },
 ];
 
+const DONUTS = [
+  {
+    title: "Subscription mix",
+    subtitle: "Active customer plans",
+    total: "8,492",
+    caption: "active users",
+    segments: [
+      { label: "Pro annual", value: 42, color: "var(--chart-1)" },
+      { label: "Team", value: 28, color: "var(--chart-2)" },
+      { label: "Pro monthly", value: 18, color: "var(--chart-3)" },
+      { label: "Starter", value: 12, color: "var(--chart-4)" },
+    ],
+  },
+  {
+    title: "Order status",
+    subtitle: "342 orders this period",
+    total: "68%",
+    caption: "paid",
+    segments: [
+      { label: "Paid", value: 68, color: "var(--chart-1)" },
+      { label: "Pending", value: 22, color: "var(--chart-2)" },
+      { label: "Failed", value: 10, color: "var(--chart-3)" },
+    ],
+  },
+  {
+    title: "Acquisition",
+    subtitle: "New users by channel",
+    total: "1,284",
+    caption: "new users",
+    segments: [
+      { label: "Organic", value: 38, color: "var(--chart-1)" },
+      { label: "Referral", value: 27, color: "var(--chart-2)" },
+      { label: "Paid", value: 21, color: "var(--chart-3)" },
+      { label: "Social", value: 14, color: "var(--chart-4)" },
+    ],
+  },
+];
+
 const ACT_ICONS = {
   upgrade: { icon: icons.award, color: "var(--accent)" },
-  system: { icon: icons.zap, color: "#3B82F6" },
-  invite: { icon: icons.userPlus, color: "#A855F7" },
+  system: { icon: icons.zap, color: "var(--accent)" },
+  invite: { icon: icons.userPlus, color: "var(--accent)" },
   error: { icon: icons.alertTriangle, color: "#EF4444" },
-  purchase: { icon: icons.creditCard, color: "#F59E0B" },
+  purchase: { icon: icons.creditCard, color: "var(--accent)" },
 };
 
-const AVATAR_GRADIENTS = [
-  "from-[#5EEAD4] to-[#3B82A0]", "from-[#7DD3FC] to-[#3B5BDB]",
-  "from-[#C4B5FD] to-[#7C3AED]", "from-[#FBBF24] to-[#F59E0B]",
-  "from-[#F87171] to-[#DC2626]",
-];
-const avatarGrad = (initials) => AVATAR_GRADIENTS[(initials.charCodeAt(0) + initials.charCodeAt(1)) % AVATAR_GRADIENTS.length];
+function DonutCard({ title, subtitle, total, caption, segments }) {
+  let offset = 0;
+  const gradient = segments.map(segment => {
+    const start = offset;
+    offset += segment.value;
+    return `${segment.color} ${start}% ${offset}%`;
+  }).join(", ");
+
+  return (
+    <section className="bg-bg-card border border-border-card rounded-2xl p-5 shadow-sm transition-all duration-200 hover:border-border-hover">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h2 className="text-[14px] font-semibold text-text-main">{title}</h2>
+          <p className="text-[12px] text-text-sub mt-1">{subtitle}</p>
+        </div>
+        <span className="w-8 h-8 rounded-xl bg-bg-hover flex items-center justify-center text-text-sub text-lg leading-none" aria-hidden="true">···</span>
+      </div>
+      <div className="flex items-center gap-5 mt-5">
+        <div
+          className="relative w-[116px] h-[116px] shrink-0 rounded-full"
+          role="img"
+          aria-label={`${title}: ${segments.map(segment => `${segment.label} ${segment.value}%`).join(", ")}`}
+          style={{ background: `conic-gradient(${gradient})` }}
+        >
+          <div className="absolute inset-[10px] rounded-full bg-bg-card flex flex-col items-center justify-center">
+            <span className="text-[20px] font-bold tracking-tight text-text-main">{total}</span>
+            <span className="text-[10px] text-text-sub mt-0.5">{caption}</span>
+          </div>
+        </div>
+        <div className="flex-1 min-w-0 space-y-3">
+          {segments.map(segment => (
+            <div key={segment.label} className="flex items-center gap-2 min-w-0">
+              <span className="w-2 h-2 rounded-full shrink-0" style={{ background: segment.color }} />
+              <span className="text-[11px] text-text-sub truncate">{segment.label}</span>
+              <span className="ml-auto text-[11px] font-semibold text-text-main">{segment.value}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const avatarGrad = () => "from-slate-500 to-slate-700";
 
 const ORDER_COLS = [
   {
@@ -144,14 +220,15 @@ export default function Overview() {
       {/* Header */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-[22px] font-bold font-display tracking-tight text-text-main">Good morning, Riya 👋</h1>
-          <p className="text-[13px] text-text-sub mt-1">Thursday, August 21, 2024 · Last updated just now</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent mb-2">Thursday, August 21, 2024</p>
+          <h1 className="text-[26px] font-bold font-display tracking-tight text-text-main">Good morning, Riya <span aria-hidden="true">👋</span></h1>
+          <p className="text-[13px] text-text-sub mt-1">Here’s what’s happening with your business today.</p>
         </div>
         <div className="flex items-center gap-2">
           <button onClick={() => show("Report exported!", "success")} className="inline-flex items-center gap-2 bg-bg-card border border-border-card text-text-muted text-[13px] font-medium px-4 py-2 rounded-xl hover:border-border-hover hover:text-text-main transition-all cursor-pointer">
             <Icon path={icons.download} className="w-4 h-4" /> Export
           </button>
-          <button className="inline-flex items-center gap-2 bg-accent text-bg-sidebar text-[13px] font-bold px-4 py-2 rounded-xl hover:bg-accent-hover transition-all shadow-[0_0_20px_var(--accent-light)] cursor-pointer">
+          <button className="inline-flex items-center gap-2 bg-accent text-accent-foreground text-[13px] font-bold px-4 py-2 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
             <Icon path={icons.plus} className="w-4 h-4" /> New Order
           </button>
         </div>
@@ -162,10 +239,24 @@ export default function Overview() {
         {STATS_DATA.map(s => <StatCard key={s.label} {...s} />)}
       </div>
 
+      {/* Business analytics */}
+      <section>
+        <div className="flex items-end justify-between gap-3 mb-3">
+          <div>
+            <h2 className="text-[15px] font-semibold text-text-main">Business analytics</h2>
+            <p className="text-[12px] text-text-sub mt-1">A closer look at your customers and orders</p>
+          </div>
+          <span className="text-[11px] text-text-dim">Updated just now</span>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {DONUTS.map(chart => <DonutCard key={chart.title} {...chart} />)}
+        </div>
+      </section>
+
       {/* Chart + Activity */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
         {/* Chart */}
-        <div className="xl:col-span-2 bg-bg-card border border-border-card rounded-2xl p-5 shadow-lg">
+        <div className="xl:col-span-2 bg-bg-card border border-border-card rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-1">
             <div>
               <h2 className="text-[14px] font-semibold text-text-main">Revenue overview</h2>
@@ -190,7 +281,7 @@ export default function Overview() {
         </div>
 
         {/* Activity */}
-        <div className="bg-bg-card border border-border-card rounded-2xl p-5 shadow-lg flex flex-col">
+        <div className="bg-bg-card border border-border-card rounded-2xl p-5 shadow-sm flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-[14px] font-semibold text-text-main">Activity</h2>
             <button className="text-[12px] text-accent hover:underline">View all</button>
@@ -201,7 +292,7 @@ export default function Overview() {
               return (
                 <div key={i} className="flex gap-3 group">
                   <div className="relative shrink-0">
-                    <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${avatarGrad(a.avatar)} flex items-center justify-center text-[10px] font-bold text-white`}>{a.avatar}</div>
+                    <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${avatarGrad()} flex items-center justify-center text-[10px] font-bold text-white`}>{a.avatar}</div>
                     <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center" style={{ background: cfg.color + "25", border: `1px solid ${cfg.color}40` }}>
                       <Icon path={cfg.icon} className="w-2 h-2" style={{ color: cfg.color, width: "8px", height: "8px" }} />
                     </div>
@@ -267,7 +358,7 @@ export default function Overview() {
             </div>
             <div className="flex gap-2 pt-1">
               <button onClick={() => { show("Invoice downloaded!", "success"); setDetailOrder(null); }}
-                className="flex-1 flex items-center justify-center gap-2 bg-accent text-bg-sidebar text-[13px] font-bold py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
+                className="flex-1 flex items-center justify-center gap-2 bg-accent text-accent-foreground text-[13px] font-bold py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
                 <Icon path={icons.download} className="w-4 h-4" /> Download Invoice
               </button>
               <button onClick={() => setDetailOrder(null)}

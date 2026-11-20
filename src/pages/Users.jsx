@@ -2,12 +2,7 @@ import { useState, useMemo } from "react";
 import { Icon, icons, StatusBadge } from "../components/Icon";
 import { TableCard, Table, Pagination, SearchInput, SegmentFilter, usePagination, Modal, DropdownMenu, useToast, Toast } from "../components/Table";
 
-const GRADIENTS = [
-  "from-[#5EEAD4] to-[#3B82A0]", "from-[#7DD3FC] to-[#3B5BDB]",
-  "from-[#C4B5FD] to-[#7C3AED]", "from-[#FBBF24] to-[#F59E0B]",
-  "from-[#F87171] to-[#DC2626]", "from-[#34D399] to-[#059669]",
-];
-const grad = (name) => GRADIENTS[name.charCodeAt(0) % GRADIENTS.length];
+const grad = () => "from-slate-500 to-slate-700";
 const initials = (name) => name.split(" ").map(n => n[0]).join("").slice(0, 2);
 
 const USERS = [
@@ -26,9 +21,9 @@ const USERS = [
 ];
 
 const ROLE_STYLES = {
-  Admin:  "text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/20 border-sky-200 dark:border-sky-500/20",
-  Owner:  "text-violet-650 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/20 border-violet-200 dark:border-violet-500/20",
-  Member: "text-slate-650 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/10 border-slate-200 dark:border-slate-700/20",
+  Admin:  "text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-500/20",
+  Owner:  "text-text-muted bg-bg-hover border-border-card",
+  Member: "text-text-muted bg-bg-hover border-border-card",
 };
 
 export default function Users() {
@@ -129,7 +124,7 @@ export default function Users() {
           <button onClick={() => show("CSV exported!", "success")} className="inline-flex items-center gap-2 bg-bg-card border border-border-card text-text-muted text-[13px] font-medium px-4 py-2 rounded-xl hover:border-border-hover hover:text-text-main transition-all cursor-pointer">
             <Icon path={icons.download} className="w-4 h-4" /> Export CSV
           </button>
-          <button onClick={() => setInvite(true)} className="inline-flex items-center gap-2 bg-accent text-bg-sidebar text-[13px] font-bold px-4 py-2 rounded-xl hover:bg-accent-hover transition-all shadow-[0_0_20px_var(--accent-light)] cursor-pointer">
+          <button onClick={() => setInvite(true)} className="inline-flex items-center gap-2 bg-accent text-accent-foreground text-[13px] font-bold px-4 py-2 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
             <Icon path={icons.userPlus} className="w-4 h-4" /> Invite User
           </button>
         </div>
@@ -140,8 +135,8 @@ export default function Users() {
         {[
           { label: "Total Members",  value: USERS.length,                                      color: "var(--text-main)", sub: "across all plans" },
           { label: "Active Now",     value: USERS.filter(u => u.status === "active").length,    color: "var(--accent)", sub: "healthy growth" },
-          { label: "Inactive",       value: USERS.filter(u => u.status === "inactive").length,  color: "#FBBF24", sub: "need re-engagement" },
-          { label: "Suspended",      value: USERS.filter(u => u.status === "suspended").length, color: "#F87171", sub: "policy violations" },
+          { label: "Inactive",       value: USERS.filter(u => u.status === "inactive").length,  color: "var(--text-muted)", sub: "need re-engagement" },
+          { label: "Suspended",      value: USERS.filter(u => u.status === "suspended").length, color: "var(--text-muted)", sub: "policy violations" },
         ].map(s => (
           <div key={s.label} className="bg-bg-card border border-border-card rounded-2xl px-5 py-4 hover:border-border-hover transition-all">
             <p className="text-[11px] font-medium text-text-sub uppercase tracking-wider">{s.label}</p>
@@ -215,7 +210,7 @@ export default function Users() {
             </div>
             <div className="flex gap-2 pt-1">
               <button onClick={() => { show(`${editUser.name} updated!`, "success"); setEditUser(null); }}
-                className="flex-1 bg-accent text-bg-sidebar text-[13px] font-bold py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
+                className="flex-1 bg-accent text-accent-foreground text-[13px] font-bold py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
                 Save Changes
               </button>
               <button onClick={() => { show(`${editUser.name} deleted`, "error"); setEditUser(null); }}
@@ -241,7 +236,7 @@ export default function Users() {
             </select>
           </div>
           <button onClick={() => { show("Invitation sent!", "success"); setInvite(false); }}
-            className="w-full bg-accent text-bg-sidebar text-[13px] font-bold py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
+            className="w-full bg-accent text-accent-foreground text-[13px] font-bold py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
             Send Invitation
           </button>
         </div>

@@ -101,8 +101,8 @@ export default function Settings() {
             <div className="py-5">
               <div className="flex items-center gap-4 mb-6">
                 <div className="relative">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#5EEAD4] to-[#3B82A0] flex items-center justify-center text-xl font-bold text-white font-display">RJ</div>
-                  <button className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-accent flex items-center justify-center text-bg-sidebar hover:bg-accent-hover transition-colors shadow cursor-pointer">
+                  <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-xl font-bold text-accent-foreground font-display">RJ</div>
+                  <button className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-accent flex items-center justify-center text-accent-foreground hover:bg-accent-hover transition-colors shadow cursor-pointer">
                     <Icon path={icons.edit} className="w-3 h-3" />
                   </button>
                 </div>
@@ -129,7 +129,7 @@ export default function Settings() {
                 </div>
               </div>
               <div className="flex justify-end mt-4 gap-2">
-                <button onClick={() => show("Changes saved!", "success")} className="bg-accent text-bg-sidebar text-[13px] font-bold px-5 py-2.5 rounded-xl hover:bg-accent-hover transition-all shadow-[0_0_20px_var(--accent-light)] cursor-pointer">
+                <button onClick={() => show("Changes saved!", "success")} className="bg-accent text-accent-foreground text-[13px] font-bold px-5 py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
                   Save Changes
                 </button>
               </div>
@@ -167,7 +167,7 @@ export default function Settings() {
           <Row label="Product Updates" desc="New features and changelog notifications"><Toggle on={notif.product} onChange={v => setNotif(n => ({ ...n, product: v }))} /></Row>
           <Row label="Billing Alerts" desc="Invoice and payment notifications"><Toggle on={notif.billing} onChange={v => setNotif(n => ({ ...n, billing: v }))} /></Row>
           <div className="py-3 flex justify-end">
-            <button onClick={() => show("Preferences saved!", "success")} className="bg-accent text-bg-sidebar text-[13px] font-bold px-5 py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">Save Preferences</button>
+            <button onClick={() => show("Preferences saved!", "success")} className="bg-accent text-accent-foreground text-[13px] font-bold px-5 py-2.5 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">Save Preferences</button>
           </div>
         </Section>
       )}
@@ -204,7 +204,7 @@ export default function Settings() {
         <div className="space-y-5">
           <div className="flex justify-between items-center">
             <p className="text-[13px] text-text-sub font-medium">Manage your API keys for programmatic access</p>
-            <button onClick={() => show("New API key created!", "success")} className="inline-flex items-center gap-2 bg-accent text-bg-sidebar text-[13px] font-bold px-4 py-2 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
+            <button onClick={() => show("New API key created!", "success")} className="inline-flex items-center gap-2 bg-accent text-accent-foreground text-[13px] font-bold px-4 py-2 rounded-xl hover:bg-accent-hover transition-all cursor-pointer">
               <Icon path={icons.plus} className="w-4 h-4" /> New Key
             </button>
           </div>
@@ -238,7 +238,7 @@ export default function Settings() {
       {/* Billing Tab */}
       {tab === "Billing" && (
         <div className="space-y-5">
-          <div className="bg-bg-card border border-accent/20 rounded-2xl p-5">
+          <div className="bg-bg-card border border-border-card rounded-2xl p-5">
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-[11px] text-text-sub uppercase tracking-wider font-medium">Current Plan</p>

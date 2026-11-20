@@ -77,12 +77,12 @@ export default function Revenue() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: "Total Revenue",  value: `$${(totalRevenue/1000).toFixed(0)}k`,   color: "var(--accent)", sub: "+12.4% YoY",   icon: icons.trendingUp },
-          { label: "Net Profit",     value: `$${(totalProfit/1000).toFixed(0)}k`,    color: "#38BDF8", sub: `${avgMargin}% margin`, icon: icons.award },
-          { label: "Total Expenses", value: `$${(totalExpenses/1000).toFixed(0)}k`,  color: "#FBBF24", sub: "well controlled", icon: icons.creditCard },
-          { label: "MoM Growth",     value: "+8.2%",                                  color: "#A78BFA", sub: "Aug vs Jul",   icon: icons.zap },
+          { label: "Net Profit",     value: `$${(totalProfit/1000).toFixed(0)}k`,    color: "var(--accent)", sub: `${avgMargin}% margin`, icon: icons.award },
+          { label: "Total Expenses", value: `$${(totalExpenses/1000).toFixed(0)}k`,  color: "var(--text-muted)", sub: "well controlled", icon: icons.creditCard },
+          { label: "MoM Growth",     value: "+8.2%",                                  color: "var(--accent)", sub: "Aug vs Jul",   icon: icons.zap },
         ].map(s => (
           <div key={s.label} className="bg-bg-card border border-border-card rounded-2xl px-5 py-4 hover:border-border-hover transition-all group relative overflow-hidden">
-            <div className="absolute top-3 right-3 w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: `${s.color}18`, color: s.color }}>
+            <div className="absolute top-3 right-3 w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "var(--accent-light)", color: s.color }}>
               <Icon path={s.icon} className="w-4 h-4" style={{ width: "16px", height: "16px" }} />
             </div>
             <p className="text-[11px] font-medium text-text-sub uppercase tracking-wider">{s.label}</p>
@@ -93,7 +93,7 @@ export default function Revenue() {
       </div>
 
       {/* Chart */}
-      <div className="bg-bg-card border border-border-card rounded-2xl p-5 shadow-lg">
+      <div className="bg-bg-card border border-border-card rounded-2xl p-5 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <div>
             <h2 className="text-[14px] font-semibold text-text-main">Monthly breakdown</h2>
@@ -103,8 +103,8 @@ export default function Revenue() {
             <div className="flex items-center gap-1 bg-bg-input border border-border-card rounded-xl p-1">
               {[
                 { key: "revenue",  label: "Revenue",  color: "var(--accent)" },
-                { key: "profit",   label: "Profit",   color: "#38BDF8" },
-                { key: "expenses", label: "Expenses", color: "#F87171" },
+                { key: "profit",   label: "Profit",   color: "var(--chart-2)" },
+                { key: "expenses", label: "Expenses", color: "var(--chart-3)" },
               ].map(t => (
                 <button key={t.key} onClick={() => setChartType(t.key)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all cursor-pointer ${chartType === t.key ? "bg-bg-hover text-text-main" : "text-text-sub hover:text-text-muted"}`}>
@@ -119,7 +119,7 @@ export default function Revenue() {
         <div className="flex items-end gap-3 h-52">
           {MONTHLY.map((m, i) => {
             const val = m[dataKey];
-            const colors = { revenue: "var(--accent)", profit: "#38BDF8", expenses: "#F87171" };
+            const colors = { revenue: "var(--chart-1)", profit: "var(--chart-2)", expenses: "var(--chart-3)" };
             const color = colors[dataKey];
             const isHov = hovered === i;
             return (
@@ -136,9 +136,8 @@ export default function Revenue() {
                     className="w-full rounded-t-xl transition-all duration-300 cursor-pointer"
                     style={{
                       height: `${(val / maxRev) * 100}%`,
-                      background: isHov
-                        ? color
-                        : `${color}40`,
+                      background: color,
+                      opacity: isHov ? 1 : 0.45,
                     }}
                   />
                 </div>

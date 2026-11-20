@@ -74,8 +74,8 @@ function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) {
       >
         {/* Logo */}
         <div className={`flex items-center h-16 border-b border-border-main shrink-0 transition-all duration-300 ${collapsed ? "px-0 justify-center" : "px-5 gap-3"}`}>
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#5EEAD4] to-[#3B82A0] flex items-center justify-center shrink-0 shadow-lg shadow-accent/20">
-            <span className="text-[#0A0F14] font-black text-sm font-display">N</span>
+          <div className="w-8 h-8 rounded-xl bg-accent flex items-center justify-center shrink-0 shadow-sm">
+            <span className="text-accent-foreground font-black text-sm font-display">N</span>
           </div>
           <div className={`overflow-hidden transition-all duration-300 ${collapsed ? "w-0 opacity-0" : "w-auto opacity-100"}`}>
             <span className="font-display font-bold text-[15px] tracking-tight text-text-main whitespace-nowrap">Nimbus</span>
@@ -140,7 +140,7 @@ function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) {
         <div className="border-t border-border-main shrink-0">
           {/* User card */}
           <div className={`flex items-center gap-3 p-3 m-2 rounded-xl hover:bg-bg-hover cursor-pointer transition-colors ${collapsed ? "justify-center" : ""}`}>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#5EEAD4] to-[#3B82A0] flex items-center justify-center text-[11px] font-bold text-[#0A0F14] shrink-0">RJ</div>
+            <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-[11px] font-bold text-accent-foreground shrink-0">RJ</div>
             <div className={`flex-1 min-w-0 overflow-hidden transition-all duration-300 ${collapsed ? "w-0 opacity-0" : "w-auto opacity-100"}`}>
               <p className="text-[12px] font-semibold text-text-main truncate whitespace-nowrap">Riya Jain</p>
               <p className="text-[10px] text-text-dim truncate whitespace-nowrap">Administrator</p>
@@ -202,7 +202,7 @@ function Topbar({ mobileOpen, setMobileOpen, theme, toggleTheme }) {
 
       {/* System status */}
       <div className="hidden md:flex items-center gap-2 text-[11px] text-text-dim font-medium mr-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-450 dark:bg-emerald-400 shadow-[0_0_6px_#34D399]" />
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
         All systems operational
       </div>
 
@@ -259,7 +259,7 @@ function Topbar({ mobileOpen, setMobileOpen, theme, toggleTheme }) {
           onClick={() => setProfileOpen(o => !o)}
           className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-bg-hover transition-colors"
         >
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#5EEAD4] to-[#3B82A0] flex items-center justify-center text-[11px] font-bold text-[#0A0F14]">RJ</div>
+          <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-[11px] font-bold text-accent-foreground">RJ</div>
           <div className="hidden sm:block text-left">
             <p className="text-[12px] font-semibold text-text-main leading-tight">Riya Jain</p>
             <p className="text-[10px] text-text-dim">Admin</p>
@@ -272,7 +272,7 @@ function Topbar({ mobileOpen, setMobileOpen, theme, toggleTheme }) {
             <div className="px-4 py-3 border-b border-border-main">
               <p className="text-[13px] font-bold text-text-main">Riya Jain</p>
               <p className="text-[11px] text-text-dim">riya@nimbus.io</p>
-              <span className="inline-block mt-1.5 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-sky-400/10 text-sky-600 dark:text-sky-400 border border-sky-400/25">Admin</span>
+              <span className="inline-block mt-1.5 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent-light text-accent border border-accent-border">Admin</span>
             </div>
             {[
               { label: "View Profile",       icon: icons.eye,      to: "/settings" },
@@ -309,7 +309,6 @@ function Layout({ theme, toggleTheme }) {
   return (
     <div className="min-h-screen w-full bg-bg-app text-text-main flex font-sans antialiased transition-colors duration-200">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
         ::selection { background: var(--accent); color: var(--bg-sidebar); }
 
         /* Scrollbar */
